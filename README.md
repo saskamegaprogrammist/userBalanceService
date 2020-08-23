@@ -5,7 +5,7 @@ test application for internship
 `sudo docker build -t alex https://github.com/saskamegaprogrammist/userBalanceService.git`
 
 # to run application:
-` sudo docker run -p 5000:5000 --name alex -t alex`
+`sudo docker run -p 5000:5000 --name alex -t alex`
 
 # API
 
