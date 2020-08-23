@@ -73,7 +73,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1 AND created <= $2
 							ORDER BY sum DESC LIMIT $3`, user.UserId, sinceTime, limit)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -85,7 +85,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1
 							ORDER BY sum DESC LIMIT $2`, user.UserId, limit)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -99,7 +99,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1 AND created <= $2
 							ORDER BY sum DESC`, user.UserId, sinceTime)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -111,7 +111,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1
 							ORDER BY sum DESC `, user.UserId)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -130,7 +130,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1 AND created >= $2
 							LIMIT $3`, user.UserId, sinceTime, limit)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -145,7 +145,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1
 							LIMIT $2`, user.UserId, limit)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -159,10 +159,9 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1 AND created >= $2
 							ORDER BY sum DESC`, user.UserId, since)
 				} else if sort == "" {
-					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1 AND created >= $2
-							LIMIT $3`, user.UserId, sinceTime, limit)
+					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1 AND created >= $2`, user.UserId, sinceTime)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}
@@ -174,10 +173,9 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1
 							ORDER BY sum `, user.UserId)
 				} else if sort == "" {
-					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1
-							LIMIT $2`, user.UserId, limit)
+					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1`,user.UserId)
 				} else {
-					userError := fmt.Errorf("Wrong sort param: %v", err.Error())
+					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())
 					return txs, utils.USER_ERROR, userError
 				}

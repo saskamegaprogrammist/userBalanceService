@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/cockroachdb/apd v1.1.0 // indirect
+	github.com/go-openapi/strfmt v0.19.5
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
 	github.com/google/logger v1.1.0
 	github.com/gorilla/handlers v1.5.0

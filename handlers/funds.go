@@ -3,7 +3,7 @@ package handlers
 import (
 	"fmt"
 	"github.com/google/logger"
-	json "github.com/mailru/easyjson"
+	easy_json "github.com/mailru/easyjson"
 	"github.com/saskamegaprogrammist/userBalanceService/models"
 	"github.com/saskamegaprogrammist/userBalanceService/useCases"
 	"github.com/saskamegaprogrammist/userBalanceService/utils"
@@ -17,7 +17,7 @@ type FundsHandlers struct {
 
 func (fh *FundsHandlers) Add(writer http.ResponseWriter, req *http.Request) {
 	var newTransaction models.Transaction
-	err := json.UnmarshalFromReader(req.Body, &newTransaction)
+	err := easy_json.UnmarshalFromReader(req.Body, &newTransaction)
 	if err != nil {
 		jsonError := fmt.Sprintf("Error unmarshaling json: %v", err.Error())
 		logger.Errorf(jsonError)
@@ -40,7 +40,7 @@ func (fh *FundsHandlers) Add(writer http.ResponseWriter, req *http.Request) {
 
 func (fh *FundsHandlers) Withdraw(writer http.ResponseWriter, req *http.Request) {
 	var newTransaction models.Transaction
-	err := json.UnmarshalFromReader(req.Body, &newTransaction)
+	err := easy_json.UnmarshalFromReader(req.Body, &newTransaction)
 	if err != nil {
 		jsonError := fmt.Sprintf("Error unmarshaling json: %v", err.Error())
 		logger.Errorf(jsonError)
@@ -65,9 +65,11 @@ func (fh *FundsHandlers) Withdraw(writer http.ResponseWriter, req *http.Request)
 }
 
 func (fh *FundsHandlers) GetBalance(writer http.ResponseWriter, req *http.Request) {
+	query := req.URL.Query()
+	currency := query.Get("currency")
 	var newBalance models.Balance
 	var newUserId models.UserId
-	err := json.UnmarshalFromReader(req.Body, &newUserId)
+	err := easy_json.UnmarshalFromReader(req.Body, &newUserId)
 	if err != nil {
 		jsonError := fmt.Sprintf("Error unmarshaling json: %v", err.Error())
 		logger.Errorf(jsonError)
@@ -75,6 +77,7 @@ func (fh *FundsHandlers) GetBalance(writer http.ResponseWriter, req *http.Reques
 		return
 	}
 	newBalance.UserId = newUserId.UserId
+	newBalance.Currency = utils.CURRENCY
 	badRequest, err := fh.FundsUC.Get(&newBalance)
 	if badRequest {
 		utils.CreateErrorAnswerJson(writer, utils.StatusCode("Bad Request"), models.CreateMessage(err.Error()))
@@ -85,12 +88,45 @@ func (fh *FundsHandlers) GetBalance(writer http.ResponseWriter, req *http.Reques
 		utils.CreateErrorAnswerJson(writer, utils.StatusCode("Internal Server Error"), models.CreateMessage(err.Error()))
 		return
 	}
+	if currency != "" {
+		httpClient := &http.Client{}
+		address := fmt.Sprintf("%s%s%s", utils.CURRENCY_API, utils.CURRENCY_API_BASE, currency)
+		request, err := http.NewRequest("GET",address, nil)
+		if err != nil {
+			logger.Error(err)
+			utils.CreateErrorAnswerJson(writer, utils.StatusCode("Internal Server Error"), models.CreateMessage(err.Error()))
+			return
+		}
+		response, err := httpClient.Do(request)
+		if err != nil {
+			logger.Error(err)
+			utils.CreateErrorAnswerJson(writer, utils.StatusCode("Internal Server Error"), models.CreateMessage(err.Error()))
+			return
+		}
+
+		var newCurrency models.CurrencyAll
+		err = easy_json.UnmarshalFromReader(response.Body, &newCurrency)
+		if err != nil {
+			jsonError := fmt.Sprintf("Error unmarshaling json: %v", err.Error())
+			logger.Errorf(jsonError)
+			utils.CreateErrorAnswerJson(writer, utils.StatusCode("Internal Server Error"), models.CreateMessage(jsonError))
+			return
+		}
+		unmarshalledValue, err := newCurrency.GetRatesFieldValueByName(currency)
+		if err != nil {
+			logger.Errorf(err.Error())
+			utils.CreateErrorAnswerJson(writer, utils.StatusCode("Bad Request"), models.CreateMessage(err.Error()))
+			return
+		}
+		newBalance.Balance *= unmarshalledValue
+		newBalance.Currency = currency
+	}
 	utils.CreateAnswerBalanceJson(writer, utils.StatusCode("OK"), newBalance)
 }
 
 func (fh *FundsHandlers) Transfer(writer http.ResponseWriter, req *http.Request) {
 	var newTransaction models.Transaction
-	err := json.UnmarshalFromReader(req.Body, &newTransaction)
+	err := easy_json.UnmarshalFromReader(req.Body, &newTransaction)
 	if err != nil {
 		jsonError := fmt.Sprintf("Error unmarshaling json: %v", err.Error())
 		logger.Errorf(jsonError)
@@ -134,7 +170,7 @@ func (fh *FundsHandlers) GetTransactions(writer http.ResponseWriter, req *http.R
 		descBool = true
 	}
 	var newUserId models.UserId
-	err = json.UnmarshalFromReader(req.Body, &newUserId)
+	err = easy_json.UnmarshalFromReader(req.Body, &newUserId)
 	if err != nil {
 		jsonError := fmt.Sprintf("Error unmarshaling json: %v", err.Error())
 		logger.Errorf(jsonError)
@@ -143,6 +179,7 @@ func (fh *FundsHandlers) GetTransactions(writer http.ResponseWriter, req *http.R
 	}
 	badRequest, txs, err := fh.FundsUC.GetTransactions(&newUserId, limitInt, since, sort, descBool)
 	if badRequest {
+		logger.Error(err)
 		utils.CreateErrorAnswerJson(writer, utils.StatusCode("Bad Request"), models.CreateMessage(err.Error()))
 		return
 	}

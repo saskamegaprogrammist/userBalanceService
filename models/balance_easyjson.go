@@ -40,6 +40,8 @@ func easyjsonBed2650eDecodeGithubComSaskamegaprogrammistUserBalanceServiceModels
 			out.UserId = int(in.Int())
 		case "balance":
 			out.Balance = float64(in.Float64())
+		case "currency":
+			out.Currency = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -68,6 +70,11 @@ func easyjsonBed2650eEncodeGithubComSaskamegaprogrammistUserBalanceServiceModels
 		const prefix string = ",\"balance\":"
 		out.RawString(prefix)
 		out.Float64(float64(in.Balance))
+	}
+	{
+		const prefix string = ",\"currency\":"
+		out.RawString(prefix)
+		out.String(string(in.Currency))
 	}
 	out.RawByte('}')
 }

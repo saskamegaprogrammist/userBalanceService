@@ -5,7 +5,7 @@ var statusCodes = map[string]int {
 	"Created" :     201,
 	"Bad Request" : 400,
 	"Unauthorized" : 401,
-	"Payment Required" :402,
+	"Payment Required" : 402,
 	"Not Found" : 404,
 	"Method Not Allowed" : 405,
 	"Conflict" : 409,
@@ -33,6 +33,9 @@ func GetAPIAddress(address string) string {
 
 const ERROR_ID  = 0
 const LIMIT_DEFAULT = -1
+const CURRENCY_API  = "https://api.exchangeratesapi.io/latest"
+const CURRENCY_API_BASE  = "?base=RUB&symbols="
+const CURRENCY  = "RUB"
 const LogFile  = "log.log"
 const DBName = "user_balance_service"
 const PortNum = ":5000"
