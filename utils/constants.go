@@ -33,7 +33,7 @@ func GetAPIAddress(address string) string {
 
 const ERROR_ID  = 0
 const LIMIT_DEFAULT = -1
-const CURRENCY_API  = "https://api.exchangeratesapi.io/latest"
+const CURRENCY_API  = "http://api.exchangeratesapi.io/latest"
 const CURRENCY_API_BASE  = "?base=RUB&symbols="
 const CURRENCY  = "RUB"
 const LogFile  = "log.log"
