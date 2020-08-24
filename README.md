@@ -1,15 +1,15 @@
 # userBalanceService
 test application for internship
 
-# to build application:
+### to build application:
 `sudo docker build -t alex https://github.com/saskamegaprogrammist/userBalanceService.git`
 
-# to run application:
+### to run application:
 `sudo docker run -p 5000:5000 --name alex -t alex`
 
 # API
 
-# Add funds
+## *Add funds*
 "/funds/add" **POST**
 
 ### Answers
@@ -22,14 +22,14 @@ test application for internship
 
 {"user_id": 1, "sum": 114.3}
 
-## CURL request example
+### CURL request example
 
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"user_id": 1, "sum": 114.3}' \
    http://localhost:5000/funds/add
    
-# Withdraw funds
+## *Withdraw funds*
 "/funds/withdraw" **POST**
 
 ### Answers
@@ -43,14 +43,14 @@ curl --header "Content-Type: application/json" \
 
 {"user_id": 4, "sum": 11}
 
-## CURL request example
+### CURL request example
 
 curl --header "Content-Type: application/json" \ 
  --request POST \
   --data '{"user_id": 4, "sum": 11}' \
   http://localhost:5000/funds/withdraw
 
-# Get balance
+## *Get balance*
 "/funds/get" **POST**
 
 ### Answers
@@ -69,7 +69,7 @@ curl --header "Content-Type: application/json" \
 
 {"user": 2}
     
-## CURL request example
+### CURL request example
 
  curl --header "Content-Type: application/json"  \
     --request POST \
@@ -81,7 +81,7 @@ curl --header "Content-Type: application/json" \
 {"user_id":4,"balance":4.02427764,"currency":"USD"}         
      
 
-# Transfer funds
+## *Transfer funds*
 "/funds/transfer" **POST**
 
 ### Answers
@@ -95,14 +95,14 @@ curl --header "Content-Type: application/json" \
 
 {"user_id": 1, "sum": 100, "user_from_id": 2}
 
-## CURL request example
+### CURL request example
 
 curl --header "Content-Type: application/json"  \
  --request POST \
  --data '{"user_id": 1, "sum": 11423.32, "user_from_id": 2}' \
  http://localhost:5000/funds/transfer
 
-# Get transaction list
+## *Get transaction list*
 "/funds/details" **POST**
 
 ### Answers
@@ -134,7 +134,7 @@ curl --header "Content-Type: application/json"  \
 
 {"user": 2}
     
-## CURL request example
+### CURL request example
 
 curl --header "Content-Type: application/json" \
   --request POST\
@@ -146,7 +146,7 @@ curl --header "Content-Type: application/json" \
 [{"user_id":1,"user_from_id":0,"operation_type":1,"sum":100,"created":"2020-08-02T00:10:09.887457+03:00"},
 {"user_id":1,"user_from_id":0,"operation_type":1,"sum":200,"created":"2020-08-03T00:10:09.887457+03:00"}]
 
-## Operation types
+ **Operation types**
 
 - 1 - Add funds ("user_from_id":0)
 - 2 - Withdraw funds ("user_from_id":0)
