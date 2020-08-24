@@ -4,8 +4,8 @@ go 1.14
 
 require (
 	github.com/cockroachdb/apd v1.1.0 // indirect
-	github.com/go-openapi/strfmt v0.19.5
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
+	github.com/golang/mock v1.4.4
 	github.com/google/logger v1.1.0
 	github.com/gorilla/handlers v1.5.0
 	github.com/gorilla/mux v1.8.0
@@ -15,6 +15,9 @@ require (
 	github.com/mailru/easyjson v0.7.6
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
+	github.com/steinfletcher/apitest v1.4.9
+	github.com/steinfletcher/apitest-jsonpath v1.5.1
+	github.com/stretchr/testify v1.6.1
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/text v0.3.3 // indirect
 )

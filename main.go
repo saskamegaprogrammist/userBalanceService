@@ -43,19 +43,19 @@ func main() {
 	// router initialization
 
 	r := mux.NewRouter()
-	r.HandleFunc(utils.GetAPIAddress("addFunds"),  balance_handlers.GetUFundsH().Add).Methods("POST")
+	r.HandleFunc(utils.GetAPIAddress("addFunds"), balance_handlers.GetUFundsH().Add).Methods("POST")
 	r.HandleFunc(utils.GetAPIAddress("withdrawFunds"), balance_handlers.GetUFundsH().Withdraw).Methods("POST")
-	r.HandleFunc(utils.GetAPIAddress("getFunds"),  balance_handlers.GetUFundsH().GetBalance).Methods("POST")
+	r.HandleFunc(utils.GetAPIAddress("getFunds"), balance_handlers.GetUFundsH().GetBalance).Methods("POST")
 	r.HandleFunc(utils.GetAPIAddress("transferFunds"), balance_handlers.GetUFundsH().Transfer).Methods("POST")
-	r.HandleFunc(utils.GetAPIAddress("getTransactions"),  balance_handlers.GetUFundsH().GetTransactions).Methods("POST")
+	r.HandleFunc(utils.GetAPIAddress("getTransactions"), balance_handlers.GetUFundsH().GetTransactions).Methods("POST")
 
 	cors := handlers.CORS(handlers.AllowCredentials(), handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"}))
 
 	// server initialization
 
 	server := &http.Server{
-		Addr: utils.PortNum,
-		Handler : cors(r),
+		Addr:         utils.PortNum,
+		Handler:      cors(r),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}

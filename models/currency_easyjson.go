@@ -105,6 +105,7 @@ func easyjsonE5a98965Decode(in *jlexer.Lexer, out *struct {
 	DKK float64 `json:"DKK"`
 	HUF float64 `json:"HUF"`
 	CZK float64 `json:"CZK"`
+	EUR float64 `json:"EUR"`
 	AUD float64 `json:"AUD"`
 	RON float64 `json:"RON"`
 	SEK float64 `json:"SEK"`
@@ -163,6 +164,8 @@ func easyjsonE5a98965Decode(in *jlexer.Lexer, out *struct {
 			out.HUF = float64(in.Float64())
 		case "CZK":
 			out.CZK = float64(in.Float64())
+		case "EUR":
+			out.EUR = float64(in.Float64())
 		case "AUD":
 			out.AUD = float64(in.Float64())
 		case "RON":
@@ -231,6 +234,7 @@ func easyjsonE5a98965Encode(out *jwriter.Writer, in struct {
 	DKK float64 `json:"DKK"`
 	HUF float64 `json:"HUF"`
 	CZK float64 `json:"CZK"`
+	EUR float64 `json:"EUR"`
 	AUD float64 `json:"AUD"`
 	RON float64 `json:"RON"`
 	SEK float64 `json:"SEK"`
@@ -294,6 +298,11 @@ func easyjsonE5a98965Encode(out *jwriter.Writer, in struct {
 		const prefix string = ",\"CZK\":"
 		out.RawString(prefix)
 		out.Float64(float64(in.CZK))
+	}
+	{
+		const prefix string = ",\"EUR\":"
+		out.RawString(prefix)
+		out.Float64(float64(in.EUR))
 	}
 	{
 		const prefix string = ",\"AUD\":"

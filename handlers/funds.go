@@ -91,7 +91,7 @@ func (fh *FundsHandlers) GetBalance(writer http.ResponseWriter, req *http.Reques
 	if currency != "" {
 		httpClient := &http.Client{}
 		address := fmt.Sprintf("%s%s%s", utils.CURRENCY_API, utils.CURRENCY_API_BASE, currency)
-		request, err := http.NewRequest("GET",address, nil)
+		request, err := http.NewRequest("GET", address, nil)
 		if err != nil {
 			logger.Error(err)
 			utils.CreateErrorAnswerJson(writer, utils.StatusCode("Internal Server Error"), models.CreateMessage(err.Error()))
@@ -190,5 +190,3 @@ func (fh *FundsHandlers) GetTransactions(writer http.ResponseWriter, req *http.R
 	}
 	utils.CreateAnswerTransactionsJson(writer, utils.StatusCode("OK"), txs)
 }
-
-

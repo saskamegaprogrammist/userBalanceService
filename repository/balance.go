@@ -10,7 +10,6 @@ import (
 type BalanceRepo struct {
 }
 
-
 func (balanceRepo *BalanceRepo) GetBalanceByUserId(balance *models.Balance) (int, error) {
 	db := getPool()
 	transaction, err := db.Begin()
@@ -41,7 +40,7 @@ func (balanceRepo *BalanceRepo) GetBalanceByUserId(balance *models.Balance) (int
 	return utils.NO_ERROR, nil
 }
 
-func (balanceRepo *BalanceRepo) InsertUser (balance *models.Balance) error {
+func (balanceRepo *BalanceRepo) InsertUser(balance *models.Balance) error {
 	db := getPool()
 	transaction, err := db.Begin()
 	if err != nil {
@@ -71,4 +70,3 @@ func (balanceRepo *BalanceRepo) InsertUser (balance *models.Balance) error {
 	}
 	return nil
 }
-

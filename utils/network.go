@@ -1,4 +1,5 @@
 package utils
+
 import (
 	"github.com/google/logger"
 	json "github.com/mailru/easyjson"
@@ -6,18 +7,18 @@ import (
 	"net/http"
 )
 
-func createAnswerJson(w http.ResponseWriter, statusCode int, data []byte)  {
+func createAnswerJson(w http.ResponseWriter, statusCode int, data []byte) {
 	w.WriteHeader(statusCode)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("content-type", "application/json")
 	_, err := w.Write(data)
 	if err != nil {
-		logger.Errorf( "Error writing answer: %v", err)
+		logger.Errorf("Error writing answer: %v", err)
 	}
 }
 
-func createEmptyBodyAnswerJson(w http.ResponseWriter, statusCode int)  {
+func createEmptyBodyAnswerJson(w http.ResponseWriter, statusCode int) {
 	w.WriteHeader(statusCode)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -31,7 +32,7 @@ func CreateEmptyBodyAnswerJson(writer http.ResponseWriter, statusCode int) {
 func CreateErrorAnswerJson(writer http.ResponseWriter, statusCode int, error balance_models.RequestError) {
 	marshalledError, err := json.Marshal(error)
 	if err != nil {
-		logger.Errorf( "Error marhalling json: %v", err)
+		logger.Errorf("Error marhalling json: %v", err)
 	}
 	createAnswerJson(writer, statusCode, marshalledError)
 }
@@ -39,18 +40,15 @@ func CreateErrorAnswerJson(writer http.ResponseWriter, statusCode int, error bal
 func CreateAnswerBalanceJson(writer http.ResponseWriter, statusCode int, chats balance_models.Balance) {
 	marshalledBalance, err := json.Marshal(chats)
 	if err != nil {
-		logger.Errorf( "Error marhalling json: %v", err)
+		logger.Errorf("Error marhalling json: %v", err)
 	}
 	createAnswerJson(writer, statusCode, marshalledBalance)
 }
 
-
 func CreateAnswerTransactionsJson(writer http.ResponseWriter, statusCode int, chats balance_models.Transactions) {
 	marshalledTransactions, err := json.Marshal(chats)
 	if err != nil {
-		logger.Errorf( "Error marhalling json: %v", err)
+		logger.Errorf("Error marhalling json: %v", err)
 	}
 	createAnswerJson(writer, statusCode, marshalledTransactions)
 }
-
-

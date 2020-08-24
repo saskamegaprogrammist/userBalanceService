@@ -9,11 +9,14 @@ import (
 )
 
 type FundsUC struct {
-	BalanceRepo repository.BalanceRepoI
+	BalanceRepo      repository.BalanceRepoI
 	TransactionsRepo repository.TransactionsRepoI
 }
 
 func (fundsUC *FundsUC) Add(tx *models.Transaction) (bool, error) {
+	if tx.UserId == utils.ERROR_ID {
+		return true, fmt.Errorf("incorrect user id")
+	}
 	var newBalance models.Balance
 	newBalance.UserId = tx.UserId
 	errType, err := fundsUC.BalanceRepo.GetBalanceByUserId(&newBalance)
@@ -41,6 +44,9 @@ func (fundsUC *FundsUC) Add(tx *models.Transaction) (bool, error) {
 }
 
 func (fundsUC *FundsUC) Withdraw(tx *models.Transaction) (bool, bool, error) {
+	if tx.UserId == utils.ERROR_ID {
+		return true, false, fmt.Errorf("incorrect user id")
+	}
 	var newBalance models.Balance
 	newBalance.UserId = tx.UserId
 	errType, err := fundsUC.BalanceRepo.GetBalanceByUserId(&newBalance)

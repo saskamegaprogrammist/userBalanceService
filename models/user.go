@@ -4,4 +4,3 @@ package models
 type UserId struct {
 	UserId int `json:"user"`
 }
-

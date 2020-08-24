@@ -5,6 +5,5 @@ type RequestError struct {
 }
 
 func CreateMessage(message string) RequestError {
-	return RequestError{Message:message}
+	return RequestError{Message: message}
 }
-

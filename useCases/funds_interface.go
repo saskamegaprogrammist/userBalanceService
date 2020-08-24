@@ -9,4 +9,3 @@ type FundsUCInterface interface {
 	Transfer(tx *models.Transaction) (bool, bool, error)
 	GetTransactions(user *models.UserId, limit int, since string, sort string, desc bool) (bool, []models.Transaction, error)
 }
-

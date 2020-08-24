@@ -143,5 +143,11 @@ curl --header "Content-Type: application/json" \
    
 ### JSON answer example
 
-[{"user_id":1,"user_from_id":0,"operation_type":1,"sum":100,"balance":100,"balance_from":0,"created":"2020-08-02T00:10:09.887457+03:00"},
-{"user_id":1,"user_from_id":0,"operation_type":1,"sum":200,"balance":300,"balance_from":0,"created":"2020-08-03T00:10:09.887457+03:00"}]
+[{"user_id":1,"user_from_id":0,"operation_type":1,"sum":100,"created":"2020-08-02T00:10:09.887457+03:00"},
+{"user_id":1,"user_from_id":0,"operation_type":1,"sum":200,"created":"2020-08-03T00:10:09.887457+03:00"}]
+
+## Operation types
+
+- 1 - Add funds ("user_from_id":0)
+- 2 - Withdraw funds ("user_from_id":0)
+- 3 - Transfer funds

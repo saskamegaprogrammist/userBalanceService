@@ -110,10 +110,6 @@ func easyjson461f4b12DecodeGithubComSaskamegaprogrammistUserBalanceServiceModels
 			out.OperationType = int(in.Int())
 		case "sum":
 			out.Sum = float64(in.Float64())
-		case "balance":
-			out.Balance = float64(in.Float64())
-		case "balance_from":
-			out.BalanceFrom = float64(in.Float64())
 		case "created":
 			if data := in.Raw(); in.Ok() {
 				in.AddError((out.Created).UnmarshalJSON(data))
@@ -156,16 +152,6 @@ func easyjson461f4b12EncodeGithubComSaskamegaprogrammistUserBalanceServiceModels
 		const prefix string = ",\"sum\":"
 		out.RawString(prefix)
 		out.Float64(float64(in.Sum))
-	}
-	{
-		const prefix string = ",\"balance\":"
-		out.RawString(prefix)
-		out.Float64(float64(in.Balance))
-	}
-	{
-		const prefix string = ",\"balance_from\":"
-		out.RawString(prefix)
-		out.Float64(float64(in.BalanceFrom))
 	}
 	{
 		const prefix string = ",\"created\":"

@@ -173,7 +173,7 @@ func (transactionsRepo *TransactionsRepo) GetUserTransactions(user *models.UserI
 					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1
 							ORDER BY sum `, user.UserId)
 				} else if sort == "" {
-					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1`,user.UserId)
+					rows, err = transaction.Query(`SELECT * FROM transactions WHERE user_id = $1 OR user_from_id = $1`, user.UserId)
 				} else {
 					userError := fmt.Errorf("Wrong sort param")
 					logger.Errorf(userError.Error())

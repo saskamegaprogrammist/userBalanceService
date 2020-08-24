@@ -15,6 +15,7 @@ type CurrencyAll struct {
 		DKK float64 `json:"DKK"`
 		HUF float64 `json:"HUF"`
 		CZK float64 `json:"CZK"`
+		EUR float64 `json:"EUR"`
 		AUD float64 `json:"AUD"`
 		RON float64 `json:"RON"`
 		SEK float64 `json:"SEK"`
@@ -40,7 +41,7 @@ type CurrencyAll struct {
 		GBP float64 `json:"GBP"`
 		KRW float64 `json:"KRW"`
 		MYR float64 `json:"MYR"`
-	}`json:"rates"`
+	} `json:"rates"`
 	Base string `json:"base"`
 	Date string `json:"date"`
 }
@@ -55,5 +56,3 @@ func (currencyAll *CurrencyAll) GetRatesFieldValueByName(currency string) (float
 	}
 
 }
-
-

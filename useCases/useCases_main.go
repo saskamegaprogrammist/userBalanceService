@@ -3,8 +3,9 @@ package useCases
 import "github.com/saskamegaprogrammist/userBalanceService/repository"
 
 type UseCases struct {
-	FundsUC    *FundsUC
+	FundsUC *FundsUC
 }
+
 var uc UseCases
 
 func Init(balanceRepo repository.BalanceRepoI, transactionsRepo repository.TransactionsRepoI) error {
@@ -15,4 +16,3 @@ func Init(balanceRepo repository.BalanceRepoI, transactionsRepo repository.Trans
 func GetFundsUC() FundsUCInterface {
 	return uc.FundsUC
 }
-

@@ -1,8 +1,8 @@
 package utils
 
 import (
-"github.com/google/logger"
-"os"
+	"github.com/google/logger"
+	"os"
 )
 
 const verbose = false

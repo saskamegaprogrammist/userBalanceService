@@ -3,7 +3,7 @@ package handlers
 import "github.com/saskamegaprogrammist/userBalanceService/useCases"
 
 type Handlers struct {
-	FundsHandlers    *FundsHandlers
+	FundsHandlers *FundsHandlers
 }
 
 var h Handlers
@@ -16,4 +16,3 @@ func Init(fundsUC useCases.FundsUCInterface) error {
 func GetUFundsH() *FundsHandlers {
 	return h.FundsHandlers
 }
-
